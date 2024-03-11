@@ -1,50 +1,93 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        <?php if (isset($ListeProd1_1) && !isset($ListeProd1_4) ): ?>
-            // Si vous avez une seule liste de volumes
-            var mois = <?php echo json_encode(array_column($ListeProd1_1, 'mois')); ?>;
-            var volumes = <?php echo json_encode(array_column($ListeProd1_1, 'total_volume')); ?>; // Utilisation de 'total_volume' au lieu de 'volume'
-        <?php elseif (!isset($ListeProd1_1) && isset($ListeProd1_4) ): ?>
-            // Si vous avez une seule liste de volumes
-            var mois = <?php echo json_encode(array_column($ListeProd1_4, 'mois')); ?>;
-            var volumes = <?php echo json_encode(array_column($ListeProd1_4, 'total_volume')); ?>; // Utilisation de 'total_volume' au lieu de 'volume'
-        <?php else: ?>
+        var chartData;
+
+        <?php if (isset($ListeProd1_1) && isset($ListeProd1_4)): ?>
             // Si vous avez les deux listes de volumes
             var mois1_1 = <?php echo json_encode(array_column($ListeProd1_1, 'mois')); ?>;
-            var volumes1_1 = <?php echo json_encode(array_column($ListeProd1_1, 'total_volume')); ?>; // Utilisation de 'total_volume' au lieu de 'volume'
+            var volumes1_1 = <?php echo json_encode(array_column($ListeProd1_1, 'total_volume')); ?>;
             var mois1_4 = <?php echo json_encode(array_column($ListeProd1_4, 'mois')); ?>;
-            var volumes1_4 = <?php echo json_encode(array_column($ListeProd1_4, 'total_volume')); ?>; // Utilisation de 'total_volume' au lieu de 'volume'
-        <?php endif; ?>
-        
-        // Création de la structure de données pour Chart.js
-        <?php if (isset($ListeProd1_1) && isset($ListeProd1_4) ): ?>
-            var chartData = {
+            var volumes1_4 = <?php echo json_encode(array_column($ListeProd1_4, 'total_volume')); ?>;
+
+            <?php if ($selectedProduct === "product1"): ?>
+                // Si le produit sélectionné est PRODUIT1_1
+                chartData = {
+                    labels: mois1_1,
+                    datasets: [{
+                        label: 'Volumes facturés pour PRODUIT1_1',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        borderWidth: 1,
+                        data: volumes1_1
+                    }]
+                };
+            <?php elseif ($selectedProduct === "product4"): ?>
+                // Si le produit sélectionné est PRODUIT1_4
+                chartData = {
+                    labels: mois1_4,
+                    datasets: [{
+                        label: 'Volumes facturés pour PRODUIT1_4',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgb(54, 162, 235)',
+                        borderWidth: 1,
+                        data: volumes1_4
+                    }]
+                };
+            <?php else: ?>
+                // Si les deux produits sont sélectionnés
+                chartData = {
+                    labels: mois1_1, // Utilisation des mêmes mois pour les deux produits
+                    datasets: [{
+                        label: 'Volumes facturés pour PRODUIT1_1',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        borderWidth: 1,
+                        data: volumes1_1
+                    }, {
+                        label: 'Volumes facturés pour PRODUIT1_4',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgb(54, 162, 235)',
+                        borderWidth: 1,
+                        data: volumes1_4
+                    }]
+                };
+            <?php endif; ?>
+
+        <?php elseif (isset($ListeProd1_1)): ?>
+            // Si vous avez une seule liste de volumes pour PRODUIT1_1
+            var mois = <?php echo json_encode(array_column($ListeProd1_1, 'mois')); ?>;
+            var volumes = <?php echo json_encode(array_column($ListeProd1_1, 'total_volume')); ?>;
+
+            chartData = {
                 labels: mois,
                 datasets: [{
-                    label: 'Volumes facturés',
+                    label: 'Volumes facturés pour PRODUIT1_1',
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     borderColor: 'rgb(255, 99, 132)',
                     borderWidth: 1,
                     data: volumes
                 }]
             };
-        <?php else: ?>
-            var chartData = {
-                labels: mois1_1, // Utilisation des mêmes mois pour les deux produits
+
+        <?php elseif (isset($ListeProd1_4)): ?>
+            // Si vous avez une seule liste de volumes pour PRODUIT1_4
+            var mois = <?php echo json_encode(array_column($ListeProd1_4, 'mois')); ?>;
+            var volumes = <?php echo json_encode(array_column($ListeProd1_4, 'total_volume')); ?>;
+
+            chartData = {
+                labels: mois,
                 datasets: [{
-                    label: 'Volumes facturés pour PRODUIT1_1',
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgb(255, 99, 132)',
-                    borderWidth: 1,
-                    data: volumes1_1
-                }, {
                     label: 'Volumes facturés pour PRODUIT1_4',
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
                     borderColor: 'rgb(54, 162, 235)',
                     borderWidth: 1,
-                    data: volumes1_4
+                    data: volumes
                 }]
             };
+
+        <?php else: ?>
+            // Aucune donnée disponible
+            chartData = {};
         <?php endif; ?>
 
         // Récupération de l'élément canvas pour afficher le graphique
@@ -63,6 +106,7 @@
         document.getElementById('end_date').value = '2022-04-30';
     }
 </script>
+
 
 <form id="productSelectionForm" method="post" action="?action=evolVolumeFacture">
     <div class="btn-group" role="group" aria-label="Choix du produit">
