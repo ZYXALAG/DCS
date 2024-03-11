@@ -1,20 +1,26 @@
 <form id="clientSelectionForm" action="?action=appligc" method="post">
-    <div class="form-group">
-        <label for="clientSelection">Sélectionner un GrandClient :</label>
+    <div class="form-group" style="display: flex; align-items: center;">
+        <label for="clientSelection" style="margin-right: 10px; margin-top: 10px;">Sélectionner un GrandClient :</label>
         <select class="form-control" id="clientSelection" name="clientSelection">
-        <?php foreach ($listeGC as $client): ?>
-            <?php $selected = ($client['NomGrandClient'] === $_POST['clientSelection']) ? 'selected' : ''; ?>
-            <option value="<?php echo $client['NomGrandClient']; ?>" <?php echo $selected; ?>><?php echo $client['NomGrandClient']; ?></option>
-        <?php endforeach; ?>
-</select>
-
+            <?php foreach ($listeGC as $client): ?>
+                <?php $selected = ($client['NomGrandClient'] === $_POST['clientSelection']) ? 'selected' : ''; ?>
+                <option value="<?php echo $client['NomGrandClient']; ?>" <?php echo $selected; ?>><?php echo $client['NomGrandClient']; ?></option>
+            <?php endforeach; ?>
+        </select>
+        <button type="submit" class="btn btn-primary" style="margin-left: 10px;">Valider</button>
     </div>
-    <button type="submit" class="btn btn-primary">Valider</button>
 </form>
 
 <?php
 $listeJSON = json_encode($listeAppbyGC);
 ?>
+
+<style>
+    /* Ajout de styles pour contrôler la taille de la liste déroulante */
+    .form-control {
+        width: 200px; /* Vous pouvez ajuster cette valeur selon vos besoins */
+    }
+</style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -71,7 +77,6 @@ $listeJSON = json_encode($listeAppbyGC);
         });
     });
 </script>
-
 
 <div id="chart-container">
     <canvas id="graphCanvas"></canvas>
