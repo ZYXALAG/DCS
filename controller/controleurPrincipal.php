@@ -7,6 +7,8 @@ function controleurPrincipal($action) {
     $lesActions["deconnexion"] = "c_deconnexion.php";
     $lesActions["modifMdp"] = "c_modification_mdp.php";
     $lesActions["evolutionMensuelle"] = "c_evolutionMensuelle.php";
+    $lesActions["evolVolumeFacture"] = "c_evolVolumeFacture.php";
+    $lesActions["appligc"] = "c_appligc.php";
     
 
     if (array_key_exists($action, $lesActions)) {

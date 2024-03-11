@@ -13,5 +13,12 @@ else{
 }
 
 $fichier = controleurPrincipal($action);
+?>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<?php
 include "$racine/controller/$fichier";
 ?>
