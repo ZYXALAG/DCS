@@ -1,3 +1,3 @@
 <h1>
-    Accueil
+Bienvenue sur le tableau de bord.
 </h1>
