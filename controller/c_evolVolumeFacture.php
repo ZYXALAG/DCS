@@ -16,9 +16,9 @@ $ManagerEVF = new ManagerEvolVolumeFacture();
 
 // Liste des volumes facturés en fonction de la sélection de l'utilisateur
 if ($selectedProduct == "product1") {
-    $ListeVolumes = $ManagerEVF->getListeVolumesFacturesFromNom("PRODUIT1_1");
+    $ListeProd1_1 = $ManagerEVF->getListeVolumesFacturesFromNom("PRODUIT1_1");
 } elseif ($selectedProduct == "product4") {
-    $ListeVolumes = $ManagerEVF->getListeVolumesFacturesFromNom("PRODUIT1_4");
+    $ListeProd1_4 = $ManagerEVF->getListeVolumesFacturesFromNom("PRODUIT1_4");
 } else {
     // Si l'utilisateur a sélectionné les deux produits, fusionnez les deux listes
     $ListeProd1_1 = $ManagerEVF->getListeVolumesFacturesFromNom("PRODUIT1_1");

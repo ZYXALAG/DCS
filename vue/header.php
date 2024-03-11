@@ -32,11 +32,9 @@
 
 
 	<!-- Sticky navbar-->
-	<header class="header sticky-top"> 
-		<?php include 'v_menu.php'?>
-	</header>
+	<?php include 'v_menu.php'?>
 
 	<!-- Content-->
-	<div class="container">	
+	<div class="container-fluid">	
 		<div class="section">	
 	
