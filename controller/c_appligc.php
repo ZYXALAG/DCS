@@ -1,13 +1,26 @@
 <?php
-include "ManagerAppliGC.php";
+include "$racine/model/ManagerAppliGC.php";
 
-$titre = "Wissem";
+$titre = "GC Price";
 
-// Variables
 $ManagerGC = new ManagerAppliGC(); 
-$listeGC = $ManagerGC.AllGrandClientID();
-$listeAppbyGC = $ManagerGC.getAppliByGC();
+$listeGC = $ManagerGC->AllGrandClientID();
 
-// appel du script de vue qui permet de gerer l'affichage des donnees
+
+$idGrandClient = 690;
+
+if (isset($_POST['clientSelection'])) {
+    $idGrandClient = $_POST['clientSelection'];
+}
+
+
+
+$listeAppbyGC = $ManagerGC->getAppliByGC($idGrandClient);
+
+
+
+include "$racine/vue/header.php";
 include "$racine/vue/v_top_app_by_GC.php";
+include "$racine/vue/footer.php";
+
 ?>

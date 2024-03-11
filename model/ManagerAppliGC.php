@@ -19,14 +19,14 @@ class ManagerAppliGC extends Manager
         ');
         $q->execute(['id' => $idGrandClient]);
 
-        while ($r = $q->fetch(PDO::FETCH_ASSOC)) {
-            $liste[] = $r;
+        while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
+            $liste[$row['nomAppli']] = $row['total_prix'];
         }
 
         return $liste;
     }
 
-    public function AllGrandClientID (): array
+    public function AllGrandClientID(): array
     {
         $liste = [];
         $q = $this->getPDO()->prepare('SELECT gc.GrandClientID FROM grandclients gc');
