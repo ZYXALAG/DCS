@@ -6,6 +6,7 @@ function controleurPrincipal($action) {
     $lesActions["inscription"] = "c_inscription.php";
     $lesActions["deconnexion"] = "c_deconnexion.php";
     $lesActions["modifMdp"] = "c_modification_mdp.php";
+    $lesActions["evolutionMensuelle"] = "c_evolutionMensuelle.php";
     
 
     if (array_key_exists($action, $lesActions)) {
@@ -16,6 +17,7 @@ function controleurPrincipal($action) {
 }
 
 function chargerModeles($racine){
+    include "$racine/model/ManagerEvoMensuelle.php";
 }
 ?>
 
