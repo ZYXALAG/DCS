@@ -1,9 +1,13 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        <?php if (isset($ListeVolumes)): ?>
+        <?php if (isset($ListeProd1_1) && !isset($ListeProd1_4) ): ?>
             // Si vous avez une seule liste de volumes
-            var mois = <?php echo json_encode(array_column($ListeVolumes, 'mois')); ?>;
-            var volumes = <?php echo json_encode(array_column($ListeVolumes, 'total_volume')); ?>; // Utilisation de 'total_volume' au lieu de 'volume'
+            var mois = <?php echo json_encode(array_column($ListeProd1_1, 'mois')); ?>;
+            var volumes = <?php echo json_encode(array_column($ListeProd1_1, 'total_volume')); ?>; // Utilisation de 'total_volume' au lieu de 'volume'
+        <?php elseif (!isset($ListeProd1_1) && isset($ListeProd1_4) ): ?>
+            // Si vous avez une seule liste de volumes
+            var mois = <?php echo json_encode(array_column($ListeProd1_4, 'mois')); ?>;
+            var volumes = <?php echo json_encode(array_column($ListeProd1_4, 'total_volume')); ?>; // Utilisation de 'total_volume' au lieu de 'volume'
         <?php else: ?>
             // Si vous avez les deux listes de volumes
             var mois1_1 = <?php echo json_encode(array_column($ListeProd1_1, 'mois')); ?>;
@@ -13,7 +17,7 @@
         <?php endif; ?>
         
         // Création de la structure de données pour Chart.js
-        <?php if (isset($ListeVolumes)): ?>
+        <?php if (isset($ListeProd1_1) && isset($ListeProd1_4) ): ?>
             var chartData = {
                 labels: mois,
                 datasets: [{
@@ -56,52 +60,29 @@
 
 
 <form id="productSelectionForm" method="post" action="?action=evolVolumeFacture">
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="productSelection" id="product1Radio" value="product1" checked>
-        <label class="form-check-label" for="product1Radio">
+    <div class="btn-group" role="group" aria-label="Choix du produit">
+        <input type="radio" class="btn-check" name="productSelection" id="product1Radio" value="product1" checked>
+        <label class="btn btn-outline-primary mx-2" for="product1Radio" <?php if (isset($ListeProd1_1)) { echo "checked"; } ?>>
             Produit 1
         </label>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="productSelection" id="product4Radio" value="product4">
-        <label class="form-check-label" for="product4Radio">
-            Produit 4
-        </label>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="productSelection" id="bothProductsRadio" value="bothProducts">
-        <label class="form-check-label" for="bothProductsRadio">
-            Les deux produits
-        </label>
-    </div>
-    <button style="color:#007bff" type="submit" class="btn" name="Actualiser">
-        ACTUALISER
-    </button>
-</form>
 
-<?php if (isset($ListeVolumes)): ?>
+
+        <input type="radio" class="btn-check" name="productSelection" id="product4Radio" value="product4">
+        <input type="radio" class="btn-check" name="productSelection" id="product1Radio" value="product4" checked>
+        <label class="btn btn-outline-primary mx-2" for="product4Radio" <?php if (isset($ListeProd1_4)) { echo "checked"; } ?>>
+        Produit 4
+        </label>
+
+        <input type="radio" class="btn-check" name="productSelection" id="bothProductsRadio" value="bothProducts">
+        <label class="btn btn-outline-primary mx-2" for="bothProductsRadio">Les deux produits</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary" name="Actualiser">ACTUALISER</button>
+</form>
+<?php if (isset($ListeProd1_1) && !isset($ListeProd1_4)): ?>
     <!-- Si vous avez une seule liste de volumes -->
-    <h2>Liste des volumes facturés</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Volume</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($ListeVolumes as $row): ?>
-                <tr>
-                    <td><?php echo $row['mois']; ?></td>
-                    <td><?php echo $row['total_volume']; ?></td> <!-- Utilisation de 'total_volume' au lieu de 'volume' -->
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-<?php else: ?>
-    <!-- Si vous avez les deux listes de volumes -->
     <h2>Liste des volumes facturés pour le produit PRODUIT1_1</h2>
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 <th>Date</th>
@@ -117,9 +98,10 @@
             <?php endforeach; ?>
         </tbody>
     </table>
-
+<?php elseif (!isset($ListeProd1_1) && isset($ListeProd1_4)): ?>
+    <!-- Si vous avez une seule liste de volumes -->
     <h2>Liste des volumes facturés pour le produit PRODUIT1_4</h2>
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 <th>Date</th>
@@ -135,7 +117,54 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+<?php else: ?>
+    <!-- Si vous avez les deux listes de volumes -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="table-responsive">
+                <h2>Liste des volumes facturés pour le produit PRODUIT1_1</h2>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Volume</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($ListeProd1_1 as $row): ?>
+                            <tr>
+                                <td><?php echo $row['mois']; ?></td>
+                                <td><?php echo $row['total_volume']; ?></td> <!-- Utilisation de 'total_volume' au lieu de 'volume' -->
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="table-responsive">
+                <h2>Liste des volumes facturés pour le produit PRODUIT1_4</h2>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Volume</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($ListeProd1_4 as $row): ?>
+                            <tr>
+                                <td><?php echo $row['mois']; ?></td>
+                                <td><?php echo $row['total_volume']; ?></td> <!-- Utilisation de 'total_volume' au lieu de 'volume' -->
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 <?php endif; ?>
+
 
 
 <div id="chart-container">
