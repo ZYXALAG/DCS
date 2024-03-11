@@ -20,5 +20,7 @@ $fichier = controleurPrincipal($action);
 </head>
 
 <?php
+include "$racine/vue/header.php";
 include "$racine/controller/$fichier";
+include "$racine/vue/footer.php";
 ?>

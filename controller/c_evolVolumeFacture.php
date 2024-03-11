@@ -26,7 +26,5 @@ if ($selectedProduct == "product1") {
 }
 
 // Appel du script de vue qui permet de gérer l'affichage des données
-include "$racine/vue/header.php";
 include "$racine/vue/v_evolVolumeFacture.php";
-include "$racine/vue/footer.php";
 ?>

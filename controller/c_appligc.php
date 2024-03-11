@@ -19,8 +19,6 @@ $listeAppbyGC = $ManagerGC->getAppliByGC($idGrandClient);
 
 
 
-include "$racine/vue/header.php";
 include "$racine/vue/v_top_app_by_GC.php";
-include "$racine/vue/footer.php";
 
 ?>
