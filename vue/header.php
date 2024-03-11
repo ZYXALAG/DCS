@@ -21,6 +21,8 @@
 	<script type="text/javascript" src="bib/js/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="bib/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="bib/js/fonctions.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-eBqOVaDBPXNcZL0+8EBkQ7qFLeF2QaUtF6uAeovlH/hFQMatEmP5gG5GzU7xSkoz" crossorigin="anonymous"></script>
 	
 
 </head>
