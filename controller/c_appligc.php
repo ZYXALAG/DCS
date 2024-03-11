@@ -10,7 +10,8 @@ $listeGC = $ManagerGC->AllGrandClientID();
 $idGrandClient = 690;
 
 if (isset($_POST['clientSelection'])) {
-    $idGrandClient = $_POST['clientSelection'];
+    $nomGrandClient = $_POST['clientSelection'];
+    $idGrandClient = $ManagerGC->getID($nomGrandClient);
 }
 
 

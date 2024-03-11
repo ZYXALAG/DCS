@@ -29,7 +29,7 @@ class ManagerAppliGC extends Manager
     public function AllGrandClientID(): array
     {
         $liste = [];
-        $q = $this->getPDO()->prepare('SELECT gc.GrandClientID FROM grandclients gc');
+        $q = $this->getPDO()->prepare('SELECT gc.NomGrandClient FROM grandclients gc');
         $q->execute();
 
         while ($r = $q->fetch(PDO::FETCH_ASSOC)) {
@@ -38,5 +38,21 @@ class ManagerAppliGC extends Manager
 
         return $liste;
     }
+
+    public function getID(string $nomGrandClient): int {
+        $q = $this->getPDO()->prepare('SELECT gc.GrandClientID FROM grandclients gc WHERE NomGrandClient = :nom');
+        $q->execute(['nom' => $nomGrandClient]);
+        $resultat = $q->fetch(); // Récupérer le résultat de la requête
+    
+        // Vérifier si des données ont été retournées
+        if ($resultat) {
+            // Retourner l'ID du grand client trouvé
+            return $resultat['GrandClientID'];
+        } else {
+            // Retourner une valeur par défaut ou lancer une exception selon le cas
+            return 0; // Valeur par défaut en cas d'échec de la recherche
+        }
+    }
+    
 }
 ?>

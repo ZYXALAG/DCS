@@ -6,7 +6,7 @@
           <a class="nav-link" href="./?action=accueil">Accueil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./?action=appligc">Ecran 1</a>
+          <a class="nav-link" href="./?action=appligc">Top des coûts d'application par GrandClient</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="./?action=evolutionMensuelle">Evolution Mensuelle</a>
