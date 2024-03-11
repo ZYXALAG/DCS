@@ -6,6 +6,7 @@ function controleurPrincipal($action) {
     $lesActions["inscription"] = "c_inscription.php";
     $lesActions["deconnexion"] = "c_deconnexion.php";
     $lesActions["modifMdp"] = "c_modification_mdp.php";
+    $lesActions["evolutionMensuelle"] = "c_evolutionMensuelle.php";
     $lesActions["evolVolumeFacture"] = "c_evolVolumeFacture.php";
     $lesActions["appligc"] = "c_appligc.php";
     
@@ -18,6 +19,7 @@ function controleurPrincipal($action) {
 }
 
 function chargerModeles($racine){
+    include "$racine/model/ManagerEvoMensuelle.php";
 }
 ?>
 
