@@ -48,7 +48,7 @@
         <?php endif; ?>
 
         // Récupération de l'élément canvas pour afficher le graphique
-        var graphTarget = document.getElementById("graphCanvas");
+        var graphTarget = document.getElementById("graphVolumesCanvas");
 
         // Création du graphique avec Chart.js
         var barGraph = new Chart(graphTarget, {
@@ -56,29 +56,48 @@
             data: chartData
         });
     });
-</script>
 
+    function resetDates() {
+        // Réinitialisation des valeurs des champs de date
+        document.getElementById('start_date').value = '2021-01-01';
+        document.getElementById('end_date').value = '2022-04-30';
+    }
+</script>
 
 <form id="productSelectionForm" method="post" action="?action=evolVolumeFacture">
     <div class="btn-group" role="group" aria-label="Choix du produit">
-        <input type="radio" class="btn-check" name="productSelection" id="product1Radio" value="product1" checked>
-        <label class="btn btn-outline-primary mx-2" for="product1Radio" <?php if (isset($ListeProd1_1)) { echo "checked"; } ?>>
+        <input type="radio" class="btn-check" name="productSelection" id="product1Radio" value="product1" <?php if (isset($ListeProd1_1)) { echo "checked"; } ?>>
+        <label class="btn btn-outline-primary mx-2" for="product1Radio">
             Produit 1
         </label>
 
-
-        <input type="radio" class="btn-check" name="productSelection" id="product4Radio" value="product4">
-        <input type="radio" class="btn-check" name="productSelection" id="product1Radio" value="product4" checked>
-        <label class="btn btn-outline-primary mx-2" for="product4Radio" <?php if (isset($ListeProd1_4)) { echo "checked"; } ?>>
-        Produit 4
+        <input type="radio" class="btn-check" name="productSelection" id="product4Radio" value="product4" <?php if (isset($ListeProd1_4)) { echo "checked"; } ?>>
+        <label class="btn btn-outline-primary mx-2" for="product4Radio">
+            Produit 4
         </label>
 
-        <input type="radio" class="btn-check" name="productSelection" id="bothProductsRadio" value="bothProducts">
-        <label class="btn btn-outline-primary mx-2" for="bothProductsRadio">Les deux produits</label>
+        <input type="radio" class="btn-check" name="productSelection" id="bothProductsRadio" value="bothProducts" <?php if (isset($ListeProd1_4) && isset($ListeProd1_1)) { echo "checked"; } ?>>
+        <label class="btn btn-outline-primary mx-2" for="bothProductsRadio">
+            Les deux produits
+        </label>
+    </div>
+
+    <div class="form-group mt-3">
+        <label for="start_date">Date de début :</label>
+        <input type="date" class="form-control" id="start_date" name="start_date" min="2021-01-01" value="<?php echo $dateDebut; ?>" required>
+    </div>
+
+    <div class="form-group">
+        <label for="end_date">Date de fin :</label>
+        <input type="date" class="form-control" id="end_date" name="end_date" max="2022-04-30" value="<?php echo $dateFin; ?>" required>
     </div>
 
     <button type="submit" class="btn btn-primary" name="Actualiser">ACTUALISER</button>
+    <button type="button" class="btn btn-secondary" onclick="resetDates()">Réinitialiser</button>
 </form>
+
+
+
 <?php if (isset($ListeProd1_1) && !isset($ListeProd1_4)): ?>
     <!-- Si vous avez une seule liste de volumes -->
     <h2>Liste des volumes facturés pour le produit PRODUIT1_1</h2>
@@ -165,8 +184,6 @@
     </div>
 <?php endif; ?>
 
-
-
-<div id="chart-container">
-    <canvas id="graphCanvas"></canvas>
+<div id="graphvolumes">
+    <canvas id="graphVolumesCanvas"></canvas>
 </div>
