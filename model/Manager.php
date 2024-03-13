@@ -2,10 +2,10 @@
 class Manager 
 {
     private static $pdo = null;
-    private string $username;
-    private string $password;
-    private string $dsn;
-    private array $options;
+    private $username;
+    private $password;
+    private $dsn;
+    private $options;
 
     /**
      * Constructeur de la classe Manager
@@ -22,7 +22,7 @@ class Manager
      *
      * @return PDO
      */
-    protected function dbConnect() : PDO
+    protected function dbConnect()
     {
         try
         {
@@ -42,14 +42,13 @@ class Manager
      *
      * @return PDO
      */
-    protected function getPDO() : PDO
-        {
-            
-            if (!self::$pdo) {
-                self::$pdo = $this->dbConnect();
-            }
-            return self::$pdo;
+    protected function getPDO()
+    {
+        
+        if (!self::$pdo) {
+            self::$pdo = $this->dbConnect();
         }
+        return self::$pdo;
     }
-
+}
 ?>
